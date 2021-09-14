@@ -1,5 +1,33 @@
 # GitHub Action for running pytest commands
 
+Simple fork that uses the Python 3.7 image on Debian instead of Alpine. 
+
+Example that installs Python dependencies before running verbose tests:
+
+```
+name: Test Runner
+
+on:
+  push:
+    branches:
+      - 'master'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  run-tests:
+    name: pytest
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies & run Python tests
+      uses: cduong/GitHub-Action-for-pytest@master
+      with: 
+        args: pip install -r requirements.txt && pytest -v
+
+```
+
 Each time that new code is pushed into your repo, you can have a [pytest](https://docs.pytest.org) command automatically run. 
 
 $ __pytest -h__
